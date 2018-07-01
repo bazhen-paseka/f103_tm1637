@@ -43,6 +43,8 @@
 
 /* USER CODE BEGIN Includes */
 
+#include "tm1637_sm.h"
+
 /* USER CODE END Includes */
 
 /* Private variables ---------------------------------------------------------*/
@@ -95,6 +97,9 @@ int main(void)
   MX_GPIO_Init();
   /* USER CODE BEGIN 2 */
 
+  tm1637Init();
+  tm1637SetBrightness(4);
+  uint32_t i=0;
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -105,10 +110,13 @@ int main(void)
   /* USER CODE END WHILE */
 
   /* USER CODE BEGIN 3 */
+	  i++;
+	  tm1637DisplayDecimal(i, 0);
+
 	  HAL_GPIO_WritePin(LED_GREEN_GPIO_Port, LED_GREEN_Pin, SET);
-	  HAL_Delay(1000);
+	  HAL_Delay(500);
 	  HAL_GPIO_WritePin(LED_GREEN_GPIO_Port, LED_GREEN_Pin, RESET);
-	  HAL_Delay(1000);
+	  HAL_Delay(500);
   }
   /* USER CODE END 3 */
 
