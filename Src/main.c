@@ -97,8 +97,27 @@ int main(void)
   MX_GPIO_Init();
   /* USER CODE BEGIN 2 */
 
-  tm1637Init();
-  tm1637SetBrightness(4);
+  tm1637_struct h1_tm1637;
+	  h1_tm1637.clk_pin = GPIO_PIN_0;
+	  h1_tm1637.clk_port = GPIOB;
+
+	  h1_tm1637.dio_pin = GPIO_PIN_1;
+	  h1_tm1637.dio_port = GPIOB;
+
+  tm1637Init(&h1_tm1637);
+  tm1637SetBrightness(&h1_tm1637, 4);
+
+  tm1637_struct h2_tm1637;
+  	  h2_tm1637.clk_pin = GPIO_PIN_5;
+  	  h2_tm1637.clk_port = GPIOB;
+
+  	  h2_tm1637.dio_pin = GPIO_PIN_6;
+  	  h2_tm1637.dio_port = GPIOB;
+
+    tm1637Init(&h2_tm1637);
+    tm1637SetBrightness(&h2_tm1637, 4);
+
+
   uint32_t i=0;
   /* USER CODE END 2 */
 
@@ -111,7 +130,8 @@ int main(void)
 
   /* USER CODE BEGIN 3 */
 	  i++;
-	  tm1637DisplayDecimal(i, 0);
+	  tm1637DisplayDecimal(&h1_tm1637, i, 0);
+	  tm1637DisplayDecimal(&h2_tm1637, i+1, 1);
 
 	  HAL_GPIO_WritePin(LED_GREEN_GPIO_Port, LED_GREEN_Pin, SET);
 	  HAL_Delay(500);
