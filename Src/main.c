@@ -104,8 +104,10 @@ int main(void)
 	  h1_tm1637.dio_pin = GPIO_PIN_1;
 	  h1_tm1637.dio_port = GPIOB;
 
-  tm1637_Init(&h1_tm1637);
-  tm1637_Set_Brightness(&h1_tm1637, bright_45percent);
+	  __HAL_RCC_GPIOB_CLK_ENABLE();
+
+	  tm1637_Init(&h1_tm1637);
+	  tm1637_Set_Brightness(&h1_tm1637, bright_45percent);
 
   tm1637_struct h2_tm1637;
   	  h2_tm1637.clk_pin = GPIO_PIN_5;
@@ -114,9 +116,10 @@ int main(void)
   	  h2_tm1637.dio_pin = GPIO_PIN_6;
   	  h2_tm1637.dio_port = GPIOB;
 
+  	  __HAL_RCC_GPIOB_CLK_ENABLE();
+
     tm1637_Init(&h2_tm1637);
     tm1637_Set_Brightness(&h2_tm1637, bright_30percent);
-
 
   uint32_t i=0;
   /* USER CODE END 2 */
@@ -131,7 +134,7 @@ int main(void)
   /* USER CODE BEGIN 3 */
 	  i++;
 	  tm1637_Display_Decimal(&h1_tm1637, i, 0);
-	  tm1637_Display_Decimal(&h2_tm1637, i*2, 1);
+	  tm1637_Display_Decimal(&h2_tm1637, i+2, 1);
 
 	  HAL_GPIO_WritePin(LED_GREEN_GPIO_Port, LED_GREEN_Pin, SET);
 	  HAL_Delay(500);
